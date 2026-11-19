@@ -3,46 +3,30 @@ import java.util.Scanner;
 
 public class App {
 	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-		double a = 0;
-		boolean isValid = false;
+		Scanner inputRectanleParams = new Scanner(System.in);
 		
-		System.out.println("Введите длину прямоугольника: ");
-		
-		while (!isValid) {
-			if (input.hasNextDouble()) {
-				a = input.nextDouble();
-				if (a > 0) {
-					isValid = true;
-				} else {
-					System.out.println("Ошибка: число должно быть больше 0.");
-				}
-			} else {
-				System.out.println("Ошибка: введено не число.");
-				input.next();
-			}
-		}
-		
-		double b = 0;
-		isValid = false;
-		
-		System.out.println("Введите ширину прямоугольника: ");
-		
-		while (!isValid) {
-			if (input.hasNextDouble()) {
-				b = input.nextDouble();
-				if (b > 0) {
-					isValid = true;
-				} else {
-					System.out.println("Ошибка: число должно быть больше 0.");
-				}
-			} else {
-				System.out.println("Ошибка: введено не число.");
-				input.next();
-			}
-		}
+		double a = readRectangleParams(inputRectanleParams, "Введите длину прямоугольника: ");
+		double b = readRectangleParams(inputRectanleParams, "Введите ширину прямоугольника: ");
 		
 		System.out.println("Длина прямоугольника: " + a);
-		System.out.println("Ширна прямоугольника: " + b);
+		System.out.println("Ширина прямоугольника: " + b);
+	}
+	
+	private static double readRectangleParams(Scanner input, String promt) {
+		while (true) {
+			System.out.print(promt);
+			String inputString = input.nextLine().strip().replace(',', '.');
+			
+			try {
+				double value = Double.parseDouble(inputString);
+				if (value > 0) {
+					return value;
+				} else {
+					System.out.println("Ошибка: введите число больше 0.");
+				}
+			} catch(NumberFormatException e) {
+				System.out.println("Ошибка: введите число.");
+			}
+		}
 	}
 }
